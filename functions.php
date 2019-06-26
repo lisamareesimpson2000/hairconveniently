@@ -19,6 +19,23 @@
 
 require_once get_template_directory() . '/assets/class-wp-bootstrap-navwalker.php';
 
+//ADMIN STYLE conditional formats displaying 
+
+function add_admin_styles(){
+    wp_enqueue_style('hair_admin_styles', get_template_directory_uri() . '/assets/css/hair_admin.css' , array(), '0.1');
+    $screen = get_current_screen();
+    if($screen->post_type === 'post' && ($screen->action === 'add' || $_GET['action'] === 'edit') ){
+        wp_enqueue_script('change_post_formats_script', get_template_directory_uri() . '/assets/js/change_post_formats.js', array('jquery'), '0.1', true);
+
+        $format = get_post_format($_GET['post']);
+
+        wp_localize_script('change_post_formats_script', 'formatObject', array(
+            'format' => $format
+        ));
+    }
+}
+add_action('admin_enqueue_scripts', 'add_admin_styles');
+
 //CUSTOM LOGO
 function theme_prefix_setup() {
 	add_theme_support( 'custom-logo', array(
@@ -35,20 +52,39 @@ add_action( 'after_setup_theme', 'theme_prefix_setup' );
 $header_info = array(
     'width'         => 980,
     'height'        => 400,
-    'default-image' => get_template_directory_uri() . '/assets/img/red-banner.jpg',
+    'default-image' => get_template_directory_uri() . '/assets/img/header-red.png',
 );
 add_theme_support( 'custom-header', $header_info );
  
 $header_images = array(
     'hairModel' => array(
-            'url'           => get_template_directory_uri() . '/assets/img/red-banner.jpg',
-            'thumbnail_url' => get_template_directory_uri() . '/assets/img/red-banner.jpg',
+            'url'           => get_template_directory_uri() . '/assets/img/header-red.png',
+            'thumbnail_url' => get_template_directory_uri() . '/assets/img/header-red.png',
             'description'   => 'Redhair',
     ),
     'hair' => array(
-            'url'           => get_template_directory_uri() . '/assets/img/brownhairbanner.jpg',
-            'thumbnail_url' => get_template_directory_uri() . '/assets/img/brownhairbanner.jpg',
+            'url'           => get_template_directory_uri() . '/assets/img/header-brown.png',
+            'thumbnail_url' => get_template_directory_uri() . '/assets/img/header-brown.png',
             'description'   => 'hairImage',
     ),  
 );
 register_default_headers( $header_images );
+
+//REGISTERING WIDGETS
+add_action( 'widgets_init', 'add_sidebar' );
+function add_sidebar() {
+    register_sidebar( array(
+        'name' => __( 'Main Sidebar', 'mobilehair' ),
+        'id' => 'sidebar-1',
+        'description' => __( 'Widgets in this area will be shown on all posts and pages.', 'mobilehair' ),
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+    	'after_widget'  => '</div>',
+    	'before_title'  => '<h2 class="widgettitle">',
+    	'after_title'   => '</h2>',
+        )
+    );
+}
+
+require get_template_directory() . '/inc/customizer.php';
+require get_template_directory() . '/inc/custom_post_types.php';
+require get_template_directory() . '/inc/custom_fields.php';
