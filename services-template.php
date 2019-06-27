@@ -38,7 +38,7 @@
 
         <?php
             $args = array(
-                'post_type' => 'subservice', //haven't hooked together, eventually needs to display service
+                'post_type' => 'service', //haven't hooked together, eventually needs to display service
                 'posts_per_page' => -1
             );
             $allServicePosts = new WP_Query($args);
@@ -60,60 +60,32 @@
                                <div id="collapse<?php echo $cardNo; ?>" class="collapse"  data-parent="#accordionExample">
                                
                                  <div class="card-body service">
-                                 <div class="">
-                                     <?php //the_post_thumbnail( 'thumbnail' ); ?>
-                                     </div>
-                                     <p class="service"> <?php the_content(); ?> </p>
-                                       
-                                    <!-- trying to render out the subservice in service accordion -->
-                                    
+                                    <p>this service is <?php the_title(); ?></p>
                                     <?php 
-                                         if(get_post_meta(get_the_ID(), 'featuredSubService', true)){
-                                            $featuredSubService = get_post_meta(get_the_ID(), 'featuredSubService', true);
-                                         }
+                         
                                     ?>
-                                    <?php if(isset($featuredSubService)): ?>
-                                        <p> Posted from extra sub service information <?php 
-                                        echo $featuredSubService; 
-                                        var_dump($featuredSubService);
-                                        
-                                        ?> </p>
-                                    <?php endif; ?>
+
+                                    <ul>
+                                        <?php
+                                        $subargs = array(
+                                            'post_type' => 'subservice',
+                                            'posts_per_page' => -1,
+                                            'meta_key' => 'featuredSubService',
+                                            'meta_value' => get_the_id()
+
+                                        );
+                                        $serviceType = new WP_Query($subargs);
+                                        ?>
+                                        <?php if( $serviceType->have_posts() ): ?>
+                                        <?php while( $serviceType->have_posts() ): $serviceType->the_post(); ?>
+                                            <li><?php the_title(); ?></li>
+                                        <?php endwhile; ?>
+
+                                    <?php endif;?>
+                                    </ul>
 
 
 
-
-
-                                     <hr>
-                                     <?php
-                                    // $featuredSubService = get_post_meta(get_the_ID(), 'featuredSubService', true);
-                                     ?>
-                                     <?php //if($featuredSubService): ?>
-                                         <?php
-                                            //  $serviceArgs = array(
-                                            //      'p' => $featuredSubService,
-                                            //      'post_type' => 'subservice'
-                                            //  );
-                                            //  $serviceType = new WP_Query($serviceArgs);
-                                          ?>
-                                          <?php //if($serviceType->have_posts()): ?>
-                                              <?php //while($serviceType->have_posts()): $serviceType->the_post(); ?>
-                                                  <h2><?php //the_title(); ?></h2>
-                                                  <p class="service"> <?php //the_content(); ?> </p>
-                                                  <?php //the_post_thumbnail('thumb'); ?>
-                                              <?php //endwhile; ?>
-                                          <?php //endif; ?>
-
-                                     <?php //endif; ?>
-
-
-
-
-
-
-
-
-                                    
                                  </div>
                                </div>
                              </div>

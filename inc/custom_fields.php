@@ -71,7 +71,7 @@
                         echo $customValues[$fieldID][0];
                             if(get_post_meta($post->ID, $fieldID, true)){
                                 $savedPostID = get_post_meta($post->ID, $fieldID, true);
-                                var_dump($savedPostID);
+                                // var_dump($savedPostID);
                             }
                             $args = array(
                                 'posts_per_page' => -1,
@@ -91,7 +91,7 @@
                             // echo '<option '.$selected.' value="'.$singlePost->ID.'">'.$singlePost->post_title.'</option>';
                             // var_dump($singlePost);
                             // echo '<option '.$selected.' value="'.isset($value).'">'.$singlePost->post_title.'</option>';
-                            echo '<option '.$selected.' value="'.$customValues[$fieldID][0].'">'.$singlePost->post_title.'</option>';
+                            echo '<option '.$selected.' value="'.$singlePost->ID.'">'.$singlePost->post_title.'</option>';
                             }
                             echo '</select>';
                             echo '</div>';

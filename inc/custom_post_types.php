@@ -56,7 +56,9 @@ function add_subService_post_type(){
         'menu_position' => 6,
         'show_in_rest' => true, //change this to false if don't want it to auto refresh
         'menu_icon' => 'dashicons-admin-appearance',
-        'supports' => array('title', 'editor', 'thumbnail')
+        'supports' => array('title'),
+        'exclude_from_search' => false,
+        'publicly_queryable' => false
     );
     register_post_type('subservice', $args);
 }
