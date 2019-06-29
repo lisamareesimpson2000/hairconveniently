@@ -48,7 +48,7 @@ function add_subService_post_type(){
 		'not_found'          => __( 'No sub service posts found.', 'mobilehair' ),
 		'not_found_in_trash' => __( 'No sub service posts found in Trash.', 'mobilehair' )
 	);
-    $args = array(
+    $args = array( //go through documentation and set ones to false ..where I don't want it to display
         'labels' => $labels,
         'description' => 'A list of sub services available',
         'public' => true,
@@ -58,7 +58,7 @@ function add_subService_post_type(){
         'menu_icon' => 'dashicons-admin-appearance',
         'supports' => array('title'),
         'exclude_from_search' => false,
-        'publicly_queryable' => false
+        'publicly_queryable' => false 
     );
     register_post_type('subservice', $args);
 }
@@ -72,11 +72,11 @@ function add_enquiries_post_type(){
     );
     $args = array(
         'labels' => $labels,
-        'description' => 'Enquiries that come through our website',
+        'description' => 'Messages that come through our website with their name, email and message',
         'public' => true,
         'menu_position' => 20,
         'query_var' => true,
-        'menu_icon' => 'dashicons-megaphone',
+        'menu_icon' => 'dashicons-testimonial',
         'supports' => array(
             'title',
             'editor'

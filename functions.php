@@ -23,16 +23,6 @@ require_once get_template_directory() . '/assets/class-wp-bootstrap-navwalker.ph
 
 function add_admin_styles(){
     wp_enqueue_style('hair_admin_styles', get_template_directory_uri() . '/assets/css/hair_admin.css' , array(), '0.1');
-    $screen = get_current_screen();
-    if($screen->post_type === 'post' && ($screen->action === 'add' || $_GET['action'] === 'edit') ){
-        wp_enqueue_script('change_post_formats_script', get_template_directory_uri() . '/assets/js/change_post_formats.js', array('jquery'), '0.1', true);
-
-        $format = get_post_format($_GET['post']);
-
-        wp_localize_script('change_post_formats_script', 'formatObject', array(
-            'format' => $format
-        ));
-    }
 }
 add_action('admin_enqueue_scripts', 'add_admin_styles');
 
@@ -47,7 +37,7 @@ function theme_prefix_setup() {
 }
 add_action( 'after_setup_theme', 'theme_prefix_setup' );
 
-//CUSTOM HEADER IMAGE
+//HOME CUSTOM HEADER IMAGE
 
 $header_info = array(
     'width'         => 980,
@@ -76,6 +66,19 @@ function add_sidebar() {
     register_sidebar( array(
         'name' => __( 'Main Sidebar', 'mobilehair' ),
         'id' => 'sidebar-1',
+        'description' => __( 'Widgets in this area will be shown on all posts and pages.', 'mobilehair' ),
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+    	'after_widget'  => '</div>',
+    	'before_title'  => '<h2 class="widgettitle">',
+    	'after_title'   => '</h2>',
+        )
+    );
+}
+add_action( 'widgets_init', 'add_client_sidebar' );
+function add_client_sidebar() {
+    register_sidebar( array(
+        'name' => __( 'Client Testimonial Sidebar', 'mobilehair' ),
+        'id' => 'sidebar-2',
         'description' => __( 'Widgets in this area will be shown on all posts and pages.', 'mobilehair' ),
         'before_widget' => '<div id="%1$s" class="widget %2$s">',
     	'after_widget'  => '</div>',

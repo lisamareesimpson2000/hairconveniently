@@ -1,19 +1,17 @@
 body {
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     font-size: 1.2em;
 }
-
-/* .carousel .item>img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    max-width: 100%;
-    height: 100%;
-} */
-
+img {
+  max-width: 100%;
+  height: auto;
+}
+h4{
+  font-family: 'Montserrat', sans-serif;
+  font-style: italic;
+  padding: 10px;
+}
 .footer {
-    /* background: #ffbb72; */
-    /* background: #030e19; */
     padding: 10px 0;
   }
   .footer a {
@@ -30,30 +28,15 @@ body {
     color: #efefef;
   }
   #copyright{
-    color: #030e19;
+    color: #efefef;
   }
-
-
   /* SERVICE STYLE */
-  /* .service {
-      background-color: #00afed;
-  } */
-
-  /* bulleted list */
-  /* ul {
-      margin: auto;
-      padding: 0px;
-  }
-
-  li{
-      background-color: #fff;
-      text-align: center;
-      list-style: none; 
+  .li_subservices{
       padding: 10px;
-  } */
-  /* ul{
+  }
+  .ul_subservices{
     text-align: center;
-  } */
+  }
   .card-header{
     text-align: center;
     
@@ -66,4 +49,21 @@ body {
 
   .btn-primary{
     background-color: #00afed !important;
+  }
+  .contact-info {
+    text-align: center;
+    padding: 10px;
+  }
+  .navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link{
+    color: #00afed !important;
+  }
+ 
+  .nzarh_logo{
+    width: 100px;
+  }
+  .arrow{
+    width: 50px;
+  }
+  .h2_phone{
+    text-align: center;
   }

@@ -2,20 +2,8 @@
 
     $metaboxes = array(
         'main_meta' => array(
-            'title' => 'Extra Services Price Information',
+            'title' => '',
             'post_type' => 'service'
-            // 'fields' => array(
-            //     'type' => array(
-            //         'title' => 'Service Type',
-            //         'type' => 'text',
-            //         'description' => 'What service do you provide?'
-            //     ),
-            //     'price' => array(
-            //         'title' => 'Service Price',
-            //         'type' => 'number',
-            //         'description' => 'The price of the service'
-            //     )
-            //)
         ),
         'service_meta' => array(
             'title' => 'Extra Sub Service Information',
@@ -46,14 +34,10 @@
         function output_custom_meta_box($post, $metabox){
             $fields = $metabox['args']['fields'];
             $customValues = get_post_custom($post->ID);
-             //var_dump($customValues);
             echo '<br>';
             echo '<input type="hidden" name="post_format_meta_box_nonce" value="'.wp_create_nonce( basename(__FILE__) ).'">';
             if($fields){
                 foreach ($fields as $fieldID => $field) {
-                    // if($customValues[$fieldID][0]){
-                    //     $value = $customValues[$fieldID][0];
-                    // }
 
                     if(isset($field['condition'])){
                         $condition = 'class="formBlock conditionalField" data-condition="'.$field['condition'].'"';
@@ -62,16 +46,11 @@
                     }
 
                     switch($field['type']){
-                        // case 'text':
-                        //     echo '<br>';
-                        //     echo '<label for="'.$fieldID.'">'.$field['title'].'</label>';
-                        //     echo '<input type="text" name="'.$fieldID.'" class="inputField" value="'.$customValues[$fieldID][0].'">';
-                        // break;
                         case 'selectPosts':
                         echo $customValues[$fieldID][0];
                             if(get_post_meta($post->ID, $fieldID, true)){
                                 $savedPostID = get_post_meta($post->ID, $fieldID, true);
-                                // var_dump($savedPostID);
+                            
                             }
                             $args = array(
                                 'posts_per_page' => -1,
@@ -81,31 +60,20 @@
                             echo '<div id="'.$fieldID.'" '.$condition.' >';
                                 echo '<label for="'.$fieldID.'">'.$field['title'].'</label>';
                                 echo '<select name="'.$fieldID.'" class="inputField customSelect">';
-                            echo '<option>--- Please select a value ---</option>';
                             foreach ($allPosts as $singlePost){
                                 if($savedPostID == $singlePost->ID){
                                     $selected = 'selected="selected"';
                                 }else{
                                 $selected = '';
                                 }
-                            // echo '<option '.$selected.' value="'.$singlePost->ID.'">'.$singlePost->post_title.'</option>';
-                            // var_dump($singlePost);
-                            // echo '<option '.$selected.' value="'.isset($value).'">'.$singlePost->post_title.'</option>';
                             echo '<option '.$selected.' value="'.$singlePost->ID.'">'.$singlePost->post_title.'</option>';
                             }
                             echo '</select>';
                             echo '</div>';
                         break;
-                        // default:
-                        //     echo $customValues[$fieldID][0];
-                        //     echo '<br>';
-                        //     echo '<label for="'.$fieldID.'">'.$field['title'].'</label>';
-                        //     echo '<input type="text" name="'.$fieldID.'" class="inputField">';
-                        // break;
                     }
                 }
             }
-            // var_dump($fields);
         }
 
 
@@ -127,14 +95,10 @@
             }
 
             $postType = get_post_type();
-            // var_dump($postType);
-            // die();
-            //not working
-  
+
             foreach ($metaboxes as $metaboxID => $metabox) {
                 if($metabox['post_type'] == $postType){
-                    // var_dump($_POST['servicetype']);
-                    // die();
+  
                     $fields = $metabox['fields'];
                     foreach ($fields as $fieldID => $field) {
                         $oldValue = get_post_meta($postID, $fieldID, true);

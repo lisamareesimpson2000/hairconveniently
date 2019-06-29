@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300i,400,600&display=swap" rel="stylesheet">
     <title>Hair Conveniently</title>
     <?php wp_head(); ?>
 </head>
@@ -36,8 +37,3 @@
         </div>
     </nav>
 
-<div>
-    <!-- <img class="img-fluid mx-auto d-block w-100" alt="responsive" src="<?php //echo get_stylesheet_directory_uri(); ?>/assets/img/red-banner.jpg"> -->
-    
-	<img class="img-fluid mx-auto d-block w-100" alt="responsive" src="<?php header_image(); ?>" width="<?php echo absint( get_custom_header()->width ); ?>" height="<?php echo absint( get_custom_header()->height ); ?>">
-</div>

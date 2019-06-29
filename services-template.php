@@ -5,6 +5,10 @@
 ?>
 
 <?php get_header(); ?>
+<div class="row mb-5 justify-content-center">
+    <img class="img-fluid mx-auto d-block w-100" src="<?php echo wp_get_attachment_url(get_theme_mod('service_image_setting'))?>">
+    <img class="img-fluid mx-auto d-block arrow" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/img-for-doc/arrow.svg" alt="arrow">
+</div>
 
 <?php if( have_posts() ): ?>
     <?php while( have_posts() ): the_post() ?>
@@ -12,12 +16,9 @@
         <div class="row">
             <div class="col">
                 <h2><?php the_title(); ?></h2>
-              
             </div>
         </div>
-
         <hr>
-
         <div class="row">
             <div class="col-6 mx-auto">
                 <div class="content">
@@ -25,20 +26,9 @@
                 </div>
             </div>
         </div>
-
-        <?php
-        // $args = array(
-        //     'post_type' => 'subservice',
-        //     'posts_per_page' => 2,
-        //     'order' => 'ASC',
-        //     'orderby' => 'date'
-        // );
-        // $allServicePosts = new WP_Query($args);
-     ?>
-
         <?php
             $args = array(
-                'post_type' => 'service', //haven't hooked together, eventually needs to display service
+                'post_type' => 'service', 
                 'posts_per_page' => -1
             );
             $allServicePosts = new WP_Query($args);
@@ -58,38 +48,27 @@
                                  </h2>
                                </div>
                                <div id="collapse<?php echo $cardNo; ?>" class="collapse"  data-parent="#accordionExample">
-                               
                                  <div class="card-body service">
-                                    <p>this service is <?php the_title(); ?></p>
-                                    <?php 
-                         
-                                    ?>
-
-                                    <ul>
+                                    <ul class="ul_subservices">
                                         <?php
                                         $subargs = array(
                                             'post_type' => 'subservice',
                                             'posts_per_page' => -1,
                                             'meta_key' => 'featuredSubService',
                                             'meta_value' => get_the_id()
-
                                         );
                                         $serviceType = new WP_Query($subargs);
                                         ?>
                                         <?php if( $serviceType->have_posts() ): ?>
                                         <?php while( $serviceType->have_posts() ): $serviceType->the_post(); ?>
-                                            <li><?php the_title(); ?></li>
+                                            <li class="li_subservices"><?php the_title(); ?></li>
                                         <?php endwhile; ?>
 
                                     <?php endif;?>
                                     </ul>
-
-
-
                                  </div>
                                </div>
                              </div>
-
                              <?php $cardNo++; ?>
                          <?php endwhile; ?>
                      </div>
@@ -98,12 +77,6 @@
              </div>
              </div>
          <?php endif; ?>
-
-
-
-
-
-
     <?php endwhile; ?>
 <?php endif; ?>
 
