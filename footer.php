@@ -9,7 +9,7 @@
     <br>
     <br>
     <img class="img-fluid nzarh_logo" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/NZARH-logo-transparent.png" alt="NZARH">
-    <p id="copyright">&copy;Copyright Lisa Simpson 2019 for educational purposes.</p>
+    <p id="copyright">&copy; Hair Conveniently 2019 | Created by Lisa Maree Design for educational purposes.</p>
   </div>
 </footer>
 
